@@ -63,7 +63,14 @@ export const TRANSLATIONS: Translations = {
     clearFilters: "Clear all filters",
     noResults: "No parts found matching your criteria.",
     showing: "Showing",
-    of: "of"
+    of: "of",
+    // Chat Widget
+    chatWelcome: "Hello! I can help you check stock, cross-reference parts, or track orders. How can I assist you today?",
+    chatPlaceholder: "Type your part number or question...",
+    chatAgentName: "ChipStore AI",
+    talkToHuman: "Talk to Human",
+    connectingHuman: "Connecting you to a sales engineer via Secure Line...",
+    agentThinking: "Analyzing database..."
   },
   cn: {
     searchPlaceholder: "按 MPN、关键字或制造商搜索...",
@@ -127,7 +134,14 @@ export const TRANSLATIONS: Translations = {
     clearFilters: "清除所有筛选",
     noResults: "未找到符合条件的零件。",
     showing: "显示",
-    of: "/"
+    of: "/",
+    // Chat Widget
+    chatWelcome: "您好！我可以帮您查询库存、寻找替代型号或追踪订单。请问有什么可以帮您？",
+    chatPlaceholder: "输入零件型号或问题...",
+    chatAgentName: "ChipStore 智能助手",
+    talkToHuman: "转人工服务",
+    connectingHuman: "正在为您连接销售工程师...",
+    agentThinking: "正在分析数据库..."
   },
   es: {
     searchPlaceholder: "Buscar por MPN, palabra clave o fabricante...",
@@ -191,7 +205,14 @@ export const TRANSLATIONS: Translations = {
     clearFilters: "Borrar filtros",
     noResults: "No se encontraron piezas.",
     showing: "Mostrando",
-    of: "de"
+    of: "de",
+    // Chat Widget
+    chatWelcome: "¡Hola! Puedo ayudarte a verificar stock, referencias cruzadas o rastrear pedidos. ¿En qué puedo ayudarte?",
+    chatPlaceholder: "Escribe tu número de parte...",
+    chatAgentName: "IA ChipStore",
+    talkToHuman: "Hablar con Humano",
+    connectingHuman: "Conectándote con un ingeniero de ventas...",
+    agentThinking: "Analizando base de datos..."
   },
   de: {
     searchPlaceholder: "Nach MPN, Stichwort oder Hersteller suchen...",
@@ -255,7 +276,14 @@ export const TRANSLATIONS: Translations = {
     clearFilters: "Filter löschen",
     noResults: "Keine Teile gefunden.",
     showing: "Zeige",
-    of: "von"
+    of: "von",
+    // Chat Widget
+    chatWelcome: "Hallo! Ich kann Ihnen helfen, Bestände zu prüfen oder Teile zu finden. Wie kann ich helfen?",
+    chatPlaceholder: "Teilenummer eingeben...",
+    chatAgentName: "ChipStore KI",
+    talkToHuman: "Menschlicher Support",
+    connectingHuman: "Verbindung zum Vertriebsingenieur wird hergestellt...",
+    agentThinking: "Datenbank analysieren..."
   }
 };
 

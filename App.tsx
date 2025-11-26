@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { TRANSLATIONS, MOCK_PARTS } from './constants';
 import { Language, Theme, Part } from './types';
+import ChatWidget from './ChatWidget';
 import { 
   Search, 
   Sun, 
@@ -217,17 +218,19 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300 font-sans selection:bg-primary/30">
       
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage(null)} />}
+      
+      <ChatWidget lang={lang} />
 
       <Modal isOpen={isBomModalOpen} onClose={() => setIsBomModalOpen(false)} title={t('bomModalTitle')}>
         <form onSubmit={handleBomSubmit} className="space-y-6">
           <div className="grid gap-5">
             <div className="space-y-2">
               <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-primary/70">{t('name')}</label>
-              <input required type="text" className="flex h-11 w-full bg-black/40 border border-white/10 px-4 py-2 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-muted-foreground/50 clip-tech-border" placeholder="OPERATOR NAME" />
+              <input required type="text" className="flex h-11 w-full bg-secondary dark:bg-black/40 border border-white/10 px-4 py-2 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-muted-foreground/50 clip-tech-border" placeholder="OPERATOR NAME" />
             </div>
             <div className="space-y-2">
               <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-primary/70">{t('email')}</label>
-              <input required type="email" className="flex h-11 w-full bg-black/40 border border-white/10 px-4 py-2 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-muted-foreground/50 clip-tech-border" placeholder="ID@COMPANY.COM" />
+              <input required type="email" className="flex h-11 w-full bg-secondary dark:bg-black/40 border border-white/10 px-4 py-2 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-muted-foreground/50 clip-tech-border" placeholder="ID@COMPANY.COM" />
             </div>
           </div>
           
@@ -313,7 +316,7 @@ export default function App() {
               <input 
                 type="text"
                 placeholder={t('searchPlaceholder')}
-                className="w-full h-10 pl-11 pr-4 bg-black/20 border border-white/10 focus:border-primary/70 focus:bg-black/50 focus:shadow-[0_0_20px_-5px_hsl(var(--primary))] outline-none transition-all text-sm font-mono placeholder:text-muted-foreground/50 clip-tech-border"
+                className="w-full h-10 pl-11 pr-4 bg-secondary/50 dark:bg-black/20 border border-white/10 focus:border-primary/70 focus:bg-background focus:shadow-[0_0_20px_-5px_hsl(var(--primary))] outline-none transition-all text-sm font-mono placeholder:text-muted-foreground/50 clip-tech-border"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -415,7 +418,7 @@ export default function App() {
               
               {/* Sidebar Filters (Tech Drawer) */}
               <div className={`
-                fixed inset-0 z-50 bg-black/90 backdrop-blur-xl lg:static lg:bg-transparent lg:inset-auto lg:z-auto lg:w-[260px] lg:shrink-0 lg:block
+                fixed inset-0 z-50 bg-background/95 lg:bg-transparent lg:static lg:inset-auto lg:z-auto lg:w-[260px] lg:shrink-0 lg:block
                 transition-all duration-300 ${isMobileFiltersOpen ? 'opacity-100 visible' : 'opacity-0 invisible lg:opacity-100 lg:visible'}
               `}>
                 <div className="h-full overflow-y-auto p-6 lg:p-0">
@@ -488,7 +491,7 @@ export default function App() {
                     </button>
                 </div>
 
-                <div className="border border-white/10 bg-black/40 backdrop-blur-sm clip-tech-border overflow-hidden relative">
+                <div className="border border-white/10 bg-card dark:bg-black/40 backdrop-blur-sm clip-tech-border overflow-hidden relative">
                     {/* Decorative Top Line */}
                     <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
 
@@ -588,7 +591,7 @@ export default function App() {
       </main>
 
       {/* --- Cyber Footer --- */}
-      <footer className="border-t border-white/10 bg-[#050505] py-12 mt-auto relative overflow-hidden">
+      <footer className="border-t border-white/10 bg-background py-12 mt-auto relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
           <div className="flex items-center gap-2">
