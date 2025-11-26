@@ -143,7 +143,7 @@ export default function App() {
   const [lang, setLang] = useState<Language>('en');
   const [query, setQuery] = useState('');
   const [activeView, setActiveView] = useState<'home' | 'search'>('home');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Removed unused mobileMenuOpen state since we are exposing controls directly
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   
   // Filter States
@@ -250,29 +250,63 @@ export default function App() {
         </form>
       </Modal>
 
-      {/* --- Tech Header --- */}
+      {/* --- Tech Header (Refactored for Mobile Parity) --- */}
       <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-background/80 backdrop-blur-md">
-        <div className="container mx-auto px-4 h-18 py-3 flex items-center justify-between gap-6">
+        <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row gap-4">
           
-          {/* Logo Area */}
-          <div 
-            className="flex items-center gap-3 cursor-pointer group shrink-0"
-            onClick={() => { setActiveView('home'); setQuery(''); }}
-          >
-            <div className="relative">
-              <div className="absolute -inset-1 bg-primary/20 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="bg-black border border-primary/50 p-2 clip-tech-border relative z-10">
-                <Cpu className="w-5 h-5 text-primary animate-pulse" />
+          {/* Top Row: Logo & Utilities (On mobile) */}
+          <div className="flex items-center justify-between w-full md:w-auto md:justify-start gap-6">
+              {/* Logo Area */}
+              <div 
+                className="flex items-center gap-3 cursor-pointer group shrink-0"
+                onClick={() => { setActiveView('home'); setQuery(''); }}
+              >
+                <div className="relative">
+                  <div className="absolute -inset-1 bg-primary/20 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="bg-black border border-primary/50 p-2 clip-tech-border relative z-10">
+                    <Cpu className="w-5 h-5 text-primary animate-pulse" />
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-mono font-bold text-lg tracking-tight leading-none">CHIP<span className="text-primary">STORE</span></span>
+                  <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground">Industrial Supply</span>
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-mono font-bold text-lg tracking-tight leading-none">CHIP<span className="text-primary">STORE</span></span>
-              <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground">Industrial Supply</span>
-            </div>
+
+              {/* Header Utilities (Visible on Mobile now) */}
+              <div className="flex items-center gap-2 md:gap-3 shrink-0 md:ml-auto">
+                <div className="flex items-center border-r border-white/10 pr-2 md:pr-4 gap-1 md:gap-2">
+                  <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 hover:bg-white/5 rounded-full transition-colors">
+                    {theme === 'dark' ? <Sun className="w-4 h-4 text-primary" /> : <Moon className="w-4 h-4" />}
+                  </button>
+                  <button 
+                    className="flex items-center gap-2 px-2 py-1.5 border border-white/10 hover:border-primary/50 rounded-none clip-tech-border text-xs font-mono uppercase transition-colors"
+                    onClick={() => setLang(lang === 'en' ? 'cn' : 'en')}
+                  >
+                    <Globe className="w-3.5 h-3.5 text-primary" />
+                    <span className="hidden sm:inline">{lang.toUpperCase()}</span>
+                  </button>
+                </div>
+
+                {/* Mobile Cart Icon */}
+                <button 
+                  className="md:hidden p-2 text-primary border border-primary/30 clip-tech-border relative active:scale-95 transition-transform"
+                  onClick={() => setActiveView('home')}
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary text-black text-[8px] font-bold flex items-center justify-center rounded-sm">0</span>
+                </button>
+
+                {/* Desktop Cart Button */}
+                <SciFiButton variant="primary" className="hidden md:flex !px-4 !py-2 !text-xs" onClick={() => setActiveView('home')}>
+                  <ShoppingCart className="w-4 h-4" />
+                  <span>CART (0)</span>
+                </SciFiButton>
+              </div>
           </div>
 
-          {/* Terminal Search */}
-          <div className="hidden md:block flex-1 max-w-xl">
+          {/* Terminal Search (Full width on mobile, Flex on desktop) */}
+          <div className="flex-1 max-w-xl md:mx-auto w-full">
             <form onSubmit={handleSearchSubmit} className="relative w-full group">
               <div className="absolute inset-0 bg-primary/5 clip-tech-border opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"></div>
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
@@ -286,34 +320,6 @@ export default function App() {
               {/* Decorative Tech Lines */}
               <div className="absolute right-2 top-2 w-1 h-1 bg-primary/50 rounded-full opacity-0 group-focus-within:opacity-100"></div>
             </form>
-          </div>
-
-          {/* Header Utilities */}
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="hidden md:flex items-center border-r border-white/10 pr-4 gap-2">
-              <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 hover:bg-white/5 rounded-full transition-colors">
-                {theme === 'dark' ? <Sun className="w-4 h-4 text-primary" /> : <Moon className="w-4 h-4" />}
-              </button>
-              <button 
-                className="flex items-center gap-2 px-3 py-1.5 border border-white/10 hover:border-primary/50 rounded-none clip-tech-border text-xs font-mono uppercase transition-colors"
-                onClick={() => setLang(lang === 'en' ? 'cn' : 'en')}
-              >
-                <Globe className="w-3.5 h-3.5 text-primary" />
-                {lang.toUpperCase()}
-              </button>
-            </div>
-
-            <SciFiButton variant="primary" className="hidden md:flex !px-4 !py-2 !text-xs" onClick={() => setActiveView('home')}>
-              <ShoppingCart className="w-4 h-4" />
-              <span>CART (0)</span>
-            </SciFiButton>
-            
-             <button 
-              className="md:hidden p-2 text-primary border border-primary/30 clip-tech-border"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
           </div>
         </div>
       </header>
@@ -330,7 +336,7 @@ export default function App() {
           /* --- HERO SECTION --- */
           <div className="flex-1 flex flex-col relative z-10">
             
-            <div className="container mx-auto px-4 pt-24 pb-32 flex flex-col items-center text-center">
+            <div className="container mx-auto px-4 pt-12 md:pt-24 pb-32 flex flex-col items-center text-center">
               
               {/* Holographic Intro Badge */}
               <div className="animate-in fade-in slide-in-from-top-5 duration-700">
@@ -343,18 +349,18 @@ export default function App() {
                 </div>
               </div>
               
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 max-w-5xl animate-in zoom-in-50 duration-700 delay-100">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-8 max-w-5xl animate-in zoom-in-50 duration-700 delay-100">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50">{t('heroTitle')}</span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl leading-relaxed font-light animate-in fade-in slide-in-from-bottom-5 duration-700 delay-200">
+              <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-12 max-w-2xl leading-relaxed font-light animate-in fade-in slide-in-from-bottom-5 duration-700 delay-200">
                 {t('heroSubtitle')}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-6 w-full max-w-lg animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full max-w-lg animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300">
                  <SciFiButton 
                   variant="primary" 
-                  className="flex-1 h-14 text-base"
+                  className="flex-1 h-12 md:h-14 text-sm md:text-base"
                   onClick={() => { setQuery('STM32'); setActiveView('search'); }}
                  >
                     <Search className="w-5 h-5" />
@@ -363,7 +369,7 @@ export default function App() {
 
                  <SciFiButton 
                   variant="secondary" 
-                  className="flex-1 h-14 text-base"
+                  className="flex-1 h-12 md:h-14 text-sm md:text-base"
                   onClick={() => setIsBomModalOpen(true)}
                  >
                     <FileText className="w-5 h-5" />
